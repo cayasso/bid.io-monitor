@@ -1,5 +1,5 @@
-bids.io
-===
+bids.io-monitor
+===============
 
-Real time bids via Socket.IO
+Monitoring app for Bid.IO
 
