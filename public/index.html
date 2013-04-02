@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bid.io Test</title>
+        <link rel="stylesheet" href="/css/style.css" media="screen" />
+
+    </head>
+    <body onkeypress="keyPress(event)">
+       
+        
+        <div id="basePlate">
+            <table id="actionList" border="1"  cellspacing="3">
+                <tr>
+                    <th colspan="1" id="up">Action</th>
+                    <th colspan="1" id="up">County</th>
+                    <th colspan="1" id="up">County id</th>
+                    <th colspan="1" id="up">Description</th>
+                    <th colspan="1" id="up">State</th>
+                    <th colspan="1" id="up">Owner Name</th>
+                    <th colspan="1" id="up">Owner id</th>
+                    
+                </tr>
+                <tr><td colspan="7"> - </td></tr>
+            </table>  
+        </div>
+        <script src="js/jquery-1.9.1.min.js"></script>
+        
+        <script src="http://"+ window.location.hostname+ ":3001/socket.io.js"></script>
+        <script src="http://"+ window.location.hostname+ ":3001/bid.io.js"></script>
+        <script src="js/jquery-ui-1.10.0.custom.js"></script>
+        
+       
+    </body>
+</html>

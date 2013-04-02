@@ -14,7 +14,7 @@ var io    = require('socket.io');
 
 app.configure(function(){
   app.engine('html', require('ejs').renderFile);
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', process.env.PORT || 3001);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'html');
   app.set("view options", { layout: false });
