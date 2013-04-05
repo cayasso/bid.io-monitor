@@ -2,6 +2,7 @@
         counter=0;
         var newRow="";
         counter = 0;
+        var states=new Array("Active","Pending","Completed","Inactive","Unknown");
         $.getJSON("data/channels.json", function(counties) {
         channelList = counties;
         color="white";
@@ -42,7 +43,7 @@
             newRow+="<td>"+data.county+"&nbsp;</td>"; 
             //newRow+="<td>"+data.id+"&nbsp;</td>"; 
             newRow+="<td>"+data.description+"&nbsp;</td>";
-            newRow+="<td>"+data.state+"&nbsp;</td>"; 
+            newRow+="<td>"+states[data.state]+"&nbsp;</td>"; 
             newRow+="<td>"+owner_name+"&nbsp;</td>"; 
             newRow+="<td>"+owner_id+"</td>"; 
             newRow+="</tr>"; 
