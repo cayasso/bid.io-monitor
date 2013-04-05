@@ -8,12 +8,12 @@
         color="white";
         for (var key in counties) {
             if (key != 0) {
-                //console.log(data[key]);
-                
+                //console.log(data[key];
+                countyName=counties[key];
                 cobbS[key] = bio.join(key);
                 cobbS[key].watch(function(data, action) {
-                console.log('WATCHING: ', action, data);
-                  
+                console.log('WATCHING: ', action, data,key);
+
                     if (action == "fetch") {
                      color="grey";
                      } else if(action == "error") {
