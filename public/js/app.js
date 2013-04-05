@@ -42,7 +42,7 @@
             newRow+="<td>"+counties[data.county]+"&nbsp;</td>"; 
             newRow+="<td>"+data.county+"&nbsp;</td>"; 
             //newRow+="<td>"+data.id+"&nbsp;</td>"; 
-            newRow+="<td>"+data.description+"&nbsp;</td>";
+            //newRow+="<td>"+data.description+"&nbsp;</td>"; // apparently this data doesn't exist
             newRow+="<td>"+states[data.state]+"&nbsp;</td>"; 
             newRow+="<td>"+owner_name+"&nbsp;</td>"; 
             newRow+="<td>"+owner_id+"</td>"; 
