@@ -1,16 +1,18 @@
         var countyListArray = new Array(); 
         counter=0;
         var newRow="";
+        var key="";
         counter = 0;
         var states=new Array("Active","Pending","Completed","Inactive","Unknown");
         $.getJSON("data/channels.json", function(counties) {
         channelList = counties;
         color="white";
-        for (var oldLey in counties) {
-            key=counties[key];
+        for (var oldKey in counties) {
+            key=counties[oldKey];
             if (key != 0) {
                 //console.log(data[key];
                 countyName=counties[key];
+                console.log("subscribed to:",key)
                 countyListArray[key] = bio.join(key);
                 countyListArray[key].watch(function(data, action) {
                 console.log('WATCHING: ', action, data,key);
@@ -40,8 +42,8 @@
              }
             newRow="<tr id=\"tr"+counter+"\">"; 
             newRow+="<td><font color='"+color+"'>"+action+"&nbsp;</color></td>"; 
-            newRow+="<td>"+counties[data.county]+"&nbsp;</td>"; 
-            newRow+="<td>"+data.county+"&nbsp;</td>"; 
+            //newRow+="<td>"+counties[data.county]+"&nbsp;</td>"; 
+            newRow+="<td>"+key+"&nbsp;</td>"; 
             //newRow+="<td>"+data.id+"&nbsp;</td>"; 
             //newRow+="<td>"+data.description+"&nbsp;</td>"; // apparently this data doesn't exist
             newRow+="<td>"+states[data.state]+"&nbsp;</td>"; 
