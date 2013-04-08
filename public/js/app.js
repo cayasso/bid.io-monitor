@@ -1,4 +1,4 @@
-        var cobbS = new Array(); 
+        var countyListArray = new Array(); 
         counter=0;
         var newRow="";
         counter = 0;
@@ -10,8 +10,8 @@
             if (key != 0) {
                 //console.log(data[key];
                 countyName=counties[key];
-                cobbS[key] = bio.join(key);
-                cobbS[key].watch(function(data, action) {
+                countyListArray[key] = bio.join(key);
+                countyListArray[key].watch(function(data, action) {
                 console.log('WATCHING: ', action, data,key);
 
                     if (action == "fetch") {
