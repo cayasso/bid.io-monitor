@@ -42,8 +42,9 @@
              }
             newRow="<tr id=\"tr"+counter+"\">"; 
             newRow+="<td><font color='"+color+"'>"+action+"&nbsp;</color></td>"; 
-            //newRow+="<td>"+counties[data.county]+"&nbsp;</td>"; 
-            newRow+="<td>"+key+"&nbsp;</td>"; 
+            newRow+="<td>"+counties[data.county]+"&nbsp;</td>"; 
+            newRow+="<td>"+countyName+"</td>";
+            //newRow+="<td>"+key+"&nbsp;</td>"; 
             //newRow+="<td>"+data.id+"&nbsp;</td>"; 
             //newRow+="<td>"+data.description+"&nbsp;</td>"; // apparently this data doesn't exist
             newRow+="<td>"+states[data.state]+"&nbsp;</td>"; 
