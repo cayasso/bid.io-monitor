@@ -7,8 +7,8 @@
         $.getJSON("data/channels.json", function(counties) {
         channelList = counties;
         color="white";
-        for (var oldKey in counties) {
-            key=counties[oldKey];
+        for (var key in counties) {
+            //key=counties[oldKey];
             if (key != 0) {
                 //console.log(data[key];
                 countyName=counties[key];
