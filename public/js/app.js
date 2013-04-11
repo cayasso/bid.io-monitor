@@ -7,16 +7,13 @@ var states = new Array("Active", "Pending", "Completed", "Inactive", "Unknown");
 $.getJSON("data/channels.json", function(counties) {
     channelList = counties;
     color = "white";
-    for (var key in counties) {
-        //key=counties[oldKey];
+    for (var key in counties) { 
         if (key != 0) {
-            //console.log(data[key];
             countyName = counties[key];
             console.log("subscribed to:", key)
             countyListArray[key] = bio.join(key);
             countyListArray[key].watch(function(data, action) {
-                console.log('WATCHING: ', action, data, key);
-
+            console.log('WATCHING: ', action, data);
                 if (action == "fetch") {
                     color = "grey";
                 } else if (action == "error") {
@@ -30,7 +27,11 @@ $.getJSON("data/channels.json", function(counties) {
                 if (action == "error") {
                     newRow = "<tr id=\"tr" + counter + "\">";
                     newRow += "<td><font color='" + color + "'>" + action + "&nbsp;</color></td>";
-                    newRow += "<td  colspan=\"7\">" + data.message + "&nbsp;</td>";
+                    var errorString="";
+                    if(typeof data.description !== "undefined") {
+                        errorString=data.description;
+                    }
+                    newRow += "<td  colspan=\"7\">" +errorString  + "&nbsp;</td>";
                     newRow += "</tr>";
                 } else {
                     try {
@@ -47,7 +48,11 @@ $.getJSON("data/channels.json", function(counties) {
                     //newRow+="<td>"+key+"&nbsp;</td>"; 
                     //newRow+="<td>"+data.id+"&nbsp;</td>"; 
                     //newRow+="<td>"+data.description+"&nbsp;</td>"; // apparently this data doesn't exist
-                    newRow += "<td>" + states[data.state] + "&nbsp;</td>";
+                    var stateString="";
+                    if(typeof data.state !=="undefined") {
+                        stateString=states[data.state];
+                    }
+                    newRow += "<td>" + stateString + "&nbsp;</td>";
                     newRow += "<td>" + owner_name + "&nbsp;</td>";
                     newRow += "<td>" + owner_id + "</td>";
                     newRow += "</tr>";
