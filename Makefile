@@ -9,5 +9,4 @@ docs:
 	@./node_modules/.bin/doxx \
 		--source public/js/ \
 		--target docs
-
 .PHONY: test docs
