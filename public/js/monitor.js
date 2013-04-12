@@ -7,7 +7,7 @@
  * @api public
  */
 
-function Monitor (io, bio, options) {
+function Monitor(io, bio, options) {
     options = options || {};
     this.io = io;
     this.bio = bio;
@@ -44,7 +44,7 @@ Monitor.prototype.version = '0.0.1';
  * @api private
  */
 
-Monitor.prototype.connect = function () {
+Monitor.prototype.connect = function() {
     if (!this.url) {
         throw new Error('options.url is required');
     }
@@ -63,7 +63,7 @@ Monitor.prototype.connect = function () {
  * @api public
  */
 
-Monitor.prototype.joinChannels = function () {
+Monitor.prototype.joinChannels = function() {
     for (var key in this.channels) {
         this.watch(this.bio.getChannel(key) || this.bio.join(key));
     }
@@ -77,10 +77,11 @@ Monitor.prototype.joinChannels = function () {
  * @api public
  */
 
-Monitor.prototype.watch = function (chnl) {
+Monitor.prototype.watch = function(chnl) {
     var self = this;
-    chnl.watch(function (data, action) {
-        if (action == 'error') return;
+    chnl.watch(function(data, action) {
+        if (action == 'error')
+            return;
         self.insertRow(self.parse(chnl.name, data, action));
     });
     return this;
@@ -96,7 +97,7 @@ Monitor.prototype.watch = function (chnl) {
  * @api private
  */
 
-Monitor.prototype.parse = function (key, data, action) {
+Monitor.prototype.parse = function(key, data, action) {
     return {
         action: action,
         chnl: this.channels[key],
@@ -116,9 +117,9 @@ Monitor.prototype.parse = function (key, data, action) {
  * @api private
  */
 
-Monitor.prototype.insertRow = function (data) {
+Monitor.prototype.insertRow = function(data) {
     $('#actionList tr:first').after(this.template(data));
-    $('#tr' + data.counter + '').effect('highlight', { color: data.color }, 2000);
+    $('#tr' + data.counter + '').effect('highlight', {color: data.color}, 2000);
     return this;
 };
 
@@ -130,16 +131,16 @@ Monitor.prototype.insertRow = function (data) {
  * @api private
  */
 
-Monitor.prototype.template = function (data) {
+Monitor.prototype.template = function(data) {
     return ''.concat(
-        '<tr id="tr' + data.counter + '">',
-        '<td><span style="' + data.color + ';"> ' + data.action + ' </span></td>',
-        '<td> ' + data.chnl + ' </td>',
-        '<td> ' + data.state + ' </td>',
-        '<td> ' + data.ownerName + ' </td>',
-        '<td> ' + data.ownerId + '</td>',
-        '</tr>'
-    );
+            '<tr id="tr' + data.counter + '">',
+            '<td><span style="' + data.color + ';"> ' + data.action + ' </span></td>',
+            '<td> ' + data.chnl + ' </td>',
+            '<td> ' + data.state + ' </td>',
+            '<td> ' + data.ownerName + ' </td>',
+            '<td> ' + data.ownerId + '</td>',
+            '</tr>'
+            );
 };
 
 /**
