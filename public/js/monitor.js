@@ -147,7 +147,7 @@ Monitor.prototype.template = function (data) {
  */
 
 var options = {
-    url: 'http://' + window.location.hostname + ':4000',
+    url: 'http://' + window.location.hostname + ':3000',
     channels: channels
 };
 
