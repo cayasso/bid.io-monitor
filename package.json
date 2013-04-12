@@ -1,11 +1,17 @@
 {
   "name": "bid.io-monitor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Monitor module for bid.io",
   "author": {
     "name": "d",
     "email": "denes@kelenyi.com"
   },
+  "contributors": [
+    {
+      "name": "Jonathan Brumley",
+      "email": "cayasso@gmail.com"
+    }
+  ],
   "private": true,
   "repository": {
     "type": "git",
