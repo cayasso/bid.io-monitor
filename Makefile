@@ -7,6 +7,6 @@ test:
 
 docs:
 	@./node_modules/.bin/doxx \
-		--source public/js/ \
+		--source public/js/src \
 		--target docs
 .PHONY: test docs
