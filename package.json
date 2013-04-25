@@ -1,21 +1,20 @@
 {
   "name": "bid.io-monitor",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Monitor module for bid.io",
   "author": {
-    "name": "d",
-    "email": "denes@kelenyi.com"
+    "name": "Jonathan Brumley",
+    "email": "cayasso@gmail.com"
   },
   "contributors": [
     {
-      "name": "Jonathan Brumley",
-      "email": "cayasso@gmail.com"
+      "name": "Denes Kelenyi",
+      "email": "denes@kelenyi.com"
     }
   ],
-  "private": true,
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:18techs/bid.io-monitor.git"
+    "url": "git://github.com/cayasso/bid.io-monitor.git"
   },
   "dependencies": {
     "debug": "*",

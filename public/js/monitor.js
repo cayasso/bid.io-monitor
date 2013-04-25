@@ -36,7 +36,7 @@ function Monitor(io, bio, options) {
  * @api public
  */
 
-Monitor.prototype.version = '0.0.1';
+Monitor.prototype.version = '0.1.0';
 
 /**
  * Connect io and bio.
@@ -148,7 +148,7 @@ Monitor.prototype.template = function(data) {
  */
 
 var options = {
-    url: 'http://' + window.location.hostname + ':3000',
+    url: 'http://app.defaultdynamics.com',
     channels: channels
 };
 
