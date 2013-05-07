@@ -8,26 +8,32 @@
  */
 
 function Monitor(io, bio, options) {
-    options = options || {};
-    this.io = io;
-    this.bio = bio;
-    this.url = options.url || null;
-    this.channels = options.channels || null;
-    this.counter = 0;
-    this.colors = {
-        'error': 'red',
-        'fetch': 'grey',
-        'lock': 'cyan',
-        'complete': 'green'
-    };
-    this.states = [
-        'Active',
-        'Pending',
-        'Completed',
-        'Inactive',
-        'Unknown'
-    ];
-    this.connect();
+  options = options || {};
+  this.io = io;
+  this.bio = bio;
+  this.url = options.url || null;
+  this.channels = options.channels || null;
+  this.counter = 0;
+  this.colors = {
+    'error': 'red',
+    'fetch': 'grey',
+    'lock': 'cyan',
+    'complete': 'green'
+  };
+  this.states = [
+    'Active',
+    'Pending',
+    'Completed',
+    'Inactive',
+    'Unknown'
+  ];
+  this.fields = [
+    'id',
+    'state',
+    'locked',
+    'owner'
+  ];
+  this.connect();
 }
 
 /**
@@ -45,15 +51,15 @@ Monitor.prototype.version = '0.1.0';
  */
 
 Monitor.prototype.connect = function() {
-    if (!this.url) {
-        throw new Error('options.url is required');
-    }
-    if (!this.channels) {
-        throw new Error('options.channels is requried');
-    }
-    this.bio = bio(this.io, this.url);
-    this.conn = this.bio.connect();
-    this.joinChannels();
+  if (!this.url) {
+    throw new Error('options.url is required');
+  }
+  if (!this.channels) {
+    throw new Error('options.channels is requried');
+  }
+  this.bio = bio(this.io, this.url);
+  this.conn = this.bio.connect();
+  this.joinChannels();
 };
 
 /**
@@ -64,9 +70,9 @@ Monitor.prototype.connect = function() {
  */
 
 Monitor.prototype.joinChannels = function() {
-    for (var key in this.channels) {
-        this.watch(this.bio.getChannel(key) || this.bio.join(key));
-    }
+  for (var key in this.channels) {
+    this.watch(this.bio.getChannel(key) || this.bio.join(key));
+  }
 };
 
 /**
@@ -78,13 +84,13 @@ Monitor.prototype.joinChannels = function() {
  */
 
 Monitor.prototype.watch = function(chnl) {
-    var self = this;
-    chnl.watch(function(data, action) {
-        if (action == 'error')
-            return;
-        self.insertRow(self.parse(chnl.name, data, action));
-    });
-    return this;
+  var self = this;
+  chnl.watch(function(data, action) {
+    if (action == 'error')
+      return;
+    self.insertRow(self.parse(chnl.name, data, action));
+  });
+  return this;
 };
 
 /**
@@ -98,15 +104,37 @@ Monitor.prototype.watch = function(chnl) {
  */
 
 Monitor.prototype.parse = function(key, data, action) {
-    return {
-        action: action,
-        chnl: this.channels[key],
-        counter: this.counter,
-        state: 'undefined' !== typeof data.state ? this.states[data.state] : '-',
-        color: this.colors[action],
-        ownerName: !!data.owner ? data.owner.name : '-',
-        ownerId: !!data.owner ? data.owner.id : '-'
-    };
+  return {
+    action: action,
+    chnl: this.channels[key],
+    counter: this.counter,
+    state: 'undefined' !== typeof data.state ? this.states[data.state] : '-',
+    color: this.colors[action],
+    ownerName: !!data.owner ? data.owner.name : '-',
+    ownerId: !!data.owner ? data.owner.id : '-',
+    data: this.parseData(data, action)
+  };
+};
+
+/**
+ * Parse data.
+ *
+ * @param {Object} data the data to pass to the template
+ * @param {String} action the watch action
+ * @return {Object} parsed data
+ * @api private
+ */
+
+Monitor.prototype.parseData = function(data, action) {
+  if ('query' === action) return {};
+  var result = {};
+  for (var key in data) {
+    var item = data[key];
+    if (!~this.fields.indexOf(key)) {
+      result[key] = data[key];
+    }
+  }
+  return result;
 };
 
 /**
@@ -118,9 +146,9 @@ Monitor.prototype.parse = function(key, data, action) {
  */
 
 Monitor.prototype.insertRow = function(data) {
-    $('#actionList tr:first').after(this.template(data));
-    $('#tr' + data.counter + '').effect('highlight', {color: data.color}, 2000);
-    return this;
+  $('#actionList tr:first').after(this.template(data));
+  $('#tr' + data.counter).effect('highlight', {color: data.color}, 2000);
+  return this;
 };
 
 /**
@@ -132,15 +160,16 @@ Monitor.prototype.insertRow = function(data) {
  */
 
 Monitor.prototype.template = function(data) {
-    return ''.concat(
-            '<tr id="tr' + data.counter + '">',
-            '<td><span style="' + data.color + ';"> ' + data.action + ' </span></td>',
-            '<td> ' + data.chnl + ' </td>',
-            '<td> ' + data.state + ' </td>',
-            '<td> ' + data.ownerName + ' </td>',
-            '<td> ' + data.ownerId + '</td>',
-            '</tr>'
-            );
+  return ''.concat(
+    '<tr id="tr' + data.counter + '">',
+    '<td><span style="' + data.color + ';"> ' + data.action + ' </span></td>',
+    '<td> ' + data.chnl + ' </td>',
+    '<td> ' + data.state + ' </td>',
+    '<td> ' + data.ownerName + ' </td>',
+    '<td> ' + data.ownerId + '</td>',
+    '<td> ' + JSON.stringify(data.data) + '</td>',
+    '</tr>'
+  );
 };
 
 /**
@@ -148,8 +177,8 @@ Monitor.prototype.template = function(data) {
  */
 
 var options = {
-    url: 'http://app.defaultdynamics.com',
-    channels: channels
+  url: 'http://lb.defaultdynamics.com:80',
+  channels: channels
 };
 
 /**
@@ -157,4 +186,3 @@ var options = {
  */
 
 var monitor = new Monitor(io, bio, options);
-
