@@ -113,26 +113,32 @@
           </table>
           <div class="description"><p>Monitor contstructor.</p> 
             <pre><code class="language-javascript">function Monitor(io, bio, options) {
-    options = options || {};
-    this.io = io;
-    this.bio = bio;
-    this.url = options.url || null;
-    this.channels = options.channels || null;
-    this.counter = 0;
-    this.colors = {
-        'error': 'red',
-        'fetch': 'grey',
-        'lock': 'cyan',
-        'complete': 'green'
-    };
-    this.states = [
-        'Active',
-        'Pending',
-        'Completed',
-        'Inactive',
-        'Unknown'
-    ];
-    this.connect();
+  options = options || {};
+  this.io = io;
+  this.bio = bio;
+  this.url = options.url || null;
+  this.channels = options.channels || null;
+  this.counter = 0;
+  this.colors = {
+    'error': 'red',
+    'fetch': 'grey',
+    'lock': 'cyan',
+    'complete': 'green'
+  };
+  this.states = [
+    'Active',
+    'Pending',
+    'Completed',
+    'Inactive',
+    'Unknown'
+  ];
+  this.fields = [
+    'id',
+    'state',
+    'locked',
+    'owner'
+  ];
+  this.connect();
 }</code></pre>
           </div>
           <section id="version">
@@ -154,9 +160,9 @@
           </section>
           <div class="description"><p>Join all channels.</p> 
             <pre><code class="language-javascript">Monitor.prototype.joinChannels = function() {
-    for (var key in this.channels) {
-        this.watch(this.bio.getChannel(key) || this.bio.join(key));
-    }
+  for (var key in this.channels) {
+    this.watch(this.bio.getChannel(key) || this.bio.join(key));
+  }
 };</code></pre>
           </div>
           <section id="watch">
@@ -184,13 +190,13 @@
           </table>
           <div class="description"><p>Start watching bids in a single channel.</p> 
             <pre><code class="language-javascript">Monitor.prototype.watch = function(chnl) {
-    var self = this;
-    chnl.watch(function(data, action) {
-        if (action == 'error')
-            return;
-        self.insertRow(self.parse(chnl.name, data, action));
-    });
-    return this;
+  var self = this;
+  chnl.watch(function(data, action) {
+    if (action == 'error')
+      return;
+    self.insertRow(self.parse(chnl.name, data, action));
+  });
+  return this;
 };</code></pre>
           </div>
           <section id="options">
@@ -202,8 +208,8 @@
           </section>
           <div class="description"><p>Monitor options.</p> 
             <pre><code class="language-javascript">var options = {
-    url: 'http://app.defaultdynamics.com',
-    channels: channels
+  url: 'http://lb.defaultdynamics.com:80',
+  channels: channels
 };</code></pre>
           </div>
           <section id="monitor">
